@@ -1,7 +1,6 @@
 # Summary
 
 * [前言](README.md)
-   * 法律法规
 * [基础知识](chapter1.md)
    * 术语
    * 发展过程

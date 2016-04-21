@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
+* [前言](README.md)
 * [基础知识](chapter1.md)
    * 术语
    * 发展过程

@@ -10,7 +10,7 @@
 * 法律法规
    * 广告法规与伦理
    * [中国](zhong_guo.md)
-       * 广告管理条例实施细则
+       * [广告管理条例实施细则](guang_gao_guan_li_tiao_li_shi_shi_xi_ze.md)
        * 广告法
    * 国际
 

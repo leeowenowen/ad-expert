@@ -1,0 +1,76 @@
+数据库设计
+
+***
+
+#数据库表
+
+##用户表
+user
+  id
+  type(个人，广告商，广告销售商)
+  name
+   个人
+     age
+     gender
+     intrests
+     recent_website
+
+##广告物料表(k-v)存
+materials
+  id
+  description
+  type(text, img, audio, video, location,html,app,game)
+  src:自有的还是来自外部DSP的.
+  impression_url:
+  click_url:
+  details(maybe a composite combination)
+    text:(title, content) 
+    img:(title, src/content, width, height) 
+    audio:(desc, src/content, length)
+    video:(desc, src/content, length)
+    location:(desc, lon, lat) 
+    html:(desc, src/content)
+    app:(desc, name, rate(5star), size, pkg_name, icon[], snap-shot[], developer, src)
+    other:
+##国家表
+country
+  id
+  name
+  country_code
+
+##广告商表
+advertiser
+  id
+  name
+  desc
+
+##广告活动表
+campaign
+  id
+  name
+  desc
+  advertiser
+  countries
+  channels
+  type(广告类别：经济，教育...)
+
+##广告位表
+placement
+  id
+  desc
+  width*height
+ with-service:generate js API code with placement.  
+
+
+
+##结算方式
+##收入管理
+##付费管理
+
+
+Question?
+1. 结算方式是由广告决定还是由广告位决定.
+2. 投入产出比例
+3. ecpm应该存储在哪里?
+
+  

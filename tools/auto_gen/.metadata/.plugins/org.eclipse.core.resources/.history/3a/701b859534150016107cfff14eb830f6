@@ -1,0 +1,87 @@
+class Column:
+  __kv = {}
+  def __init__(self):
+    pass
+
+  def set(k,v):
+    __kv[k] = v
+
+  def set(kv):
+    __kv = kv
+  
+  def get(k):
+    return __kv[k]
+  
+  def contains(k):
+    return k in __kv
+
+class Table:
+  __name = ''
+  __title = ''
+  __columns = []
+  def setName(name):
+    __name = name
+
+  def name():
+    return __name
+
+  def setTitle(title):
+    __title = title
+
+  def title():
+    return __title
+  
+  def addColumn(column):
+    __columns.append(column)
+
+  def columns():
+    return __columns
+
+class DB:
+  __host = ''
+  __port = ''
+  __username = ''
+  __password = ''
+  __name = ''
+  __charset = ''
+  __tables = []
+  
+  def __init__(self):
+    pass
+  
+  def setHost(host):
+    __host = host
+
+  def host():
+    return __host
+  
+  def setPort(port):
+    __port = port
+
+  def port():
+    return __port
+
+  def setName(name):
+    __name = name
+
+  def name():
+    return __name
+
+  def setUser(user):
+    __username = user
+
+  def user():
+    return __username
+
+  def setPassword(password):
+    __password = password
+  def password():
+    return __password
+ 
+  def addTable(table):
+    __tables.append(table)
+
+  def tables():
+    return __tables
+
+

@@ -1,0 +1,21 @@
+{
+  "db":{
+    "host":"127.0.0.1",
+    "port":3306,
+    "username":"root",
+    "password":"wangli",
+    "name":"adx",
+    "charset":"utf-8",
+    "tables":[
+      {
+        "name":"user",
+        "title":"user manage",
+        "columns":{
+          "id":"id_",
+          "age":"age_",
+          "gender":"gender_"
+        }
+      }
+    ]
+  }
+}

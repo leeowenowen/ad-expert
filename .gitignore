@@ -17,4 +17,4 @@ _book
 
 *.swp
 *.swo
-.metadata/
+tools/auto_gen/.metadata/

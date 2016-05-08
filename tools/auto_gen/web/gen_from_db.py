@@ -13,6 +13,10 @@ def ParseDBConfig(path):
 
 db = ParseDBConfig('config.json')
 mgc = MySQLGenClient(db)
+
 mgc.open()
+columns = mgc.fetchColumnInfo("user")
+print columns
 mgc.close()
+
 

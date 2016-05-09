@@ -5,7 +5,7 @@
     "username":"root",
     "password":"wangli",
     "name":"adx",
-    "charset":"utf-8",
+    "charset":"utf8",
     "tables":[
       {
         "name":"user",

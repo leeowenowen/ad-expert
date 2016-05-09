@@ -1,7 +1,7 @@
 class Columns:
-    __kv = {}
+    
     def __init__(self):
-        pass
+        self.__kv = {}
 
     def set(self, kv):
         self.__kv = kv
@@ -13,9 +13,11 @@ class Columns:
         return k in self.__kv
 
 class Table:
-    __name = ''
-    __title = ''
-    __columns = {}
+    def __init__(self):
+        self.__name = ''
+        self.__title = ''
+        self.__columns = {}
+        
     def setName(self, name):
         self.__name = name
 
@@ -35,16 +37,15 @@ class Table:
         return self.__columns
 
 class DB:
-    __host = ''
-    __port = ''
-    __username = ''
-    __password = ''
-    __name = ''
-    __charset = ''
-    __tables = []
     
     def __init__(self):
-        pass
+        self.__host = ''
+        self.__port = ''
+        self.__username = ''
+        self.__password = ''
+        self.__name = ''
+        self.__charset = ''
+        self.__tables = []
     
     def setHost(self, host):
         self.__host = host

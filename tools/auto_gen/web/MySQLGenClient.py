@@ -4,14 +4,13 @@ import json
 import MySQLdb
 
 class MySQLGenClient:
-    __db = None
-    __conn = None
-    __cursor = None
     
     def __init__(self, db):
-        self.__db = db
+        self.db = db
+        self.conn = None
+        self.cursor = None
 
-    def __safeCall(self, func):
+    def safeCall(self, func):
         try:
             return func()
         except Exception, e:
@@ -19,28 +18,30 @@ class MySQLGenClient:
 
     def open(self): 
         def openImpl():
-            self.__conn = MySQLdb.connect(host=self.__db.host(), user=self.__db.user(), passwd=self.__db.password(), db=self.__db.name(), port=self.__db.port())
+            self.conn = MySQLdb.connect(host=self.db.host(), user=self.db.user(), passwd=self.db.password(), db=self.db.name(), port=self.db.port(), charset=self.db.charset())
 
-            self.__cursor = self.__conn.cursor()
-            self.__conn.select_db(self.__db.name())
-        return self.__safeCall(openImpl)
+            self.cursor = self.conn.cursor()
+            return self.conn.select_db(self.db.name())
+        return self.safeCall(openImpl)
 
     def close(self):
         def closeImpl():
-            self.__cursor.close()
-            self.__conn.close()
-        return self.__safeCall(closeImpl) 
+            self.cursor.close()
+            return self.conn.close()
+        return self.safeCall(closeImpl) 
 
     def execute(self, sql):
         def executeImpl():
-            results = self.__cursor.fetchall()
+            self.cursor.execute(sql)
+            results = self.cursor.fetchall()
             return results
-        return self.__safeCall(executeImpl)
+        return self.safeCall(executeImpl)
     def fetchDBInfo(self):
         pass
     def fetchTableInfo(self):
-        pass
+        sql = "show tables"
+        return self.execute(sql)
     
     def fetchColumnInfo(self, table):
-        sql = 'select column_name,data_type, column_type from information_schema.columns where table_name = %s' % (table)
+        sql = "select column_name,data_type, column_type from information_schema.columns where table_name = '%s' and table_schema='%s'" % (table, self.db.name())
         return self.execute(sql)

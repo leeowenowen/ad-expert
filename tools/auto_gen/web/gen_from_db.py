@@ -15,8 +15,19 @@ db = ParseDBConfig('config.json')
 mgc = MySQLGenClient(db)
 
 mgc.open()
-columns = mgc.fetchColumnInfo("user")
-print columns
+
+table_sets = mgc.fetchTableInfo()
+for table_set in table_sets:
+    for table in table_set:
+        print '%s----------------' % table
+        column_sets = mgc.fetchColumnInfo('user')
+        for column_set in column_sets:
+            column_list = list(column_set)
+            name = column_list[0]
+            data_type = column_list[1]
+            column_type = column_list[2]
+            print '%s, %s, %s' % (name, data_type, column_type)
+        
 mgc.close()
 
 

@@ -10,11 +10,24 @@
       {
         "name":"user",
         "title":"user manage",
-        "columns":{
-          "id":"id_",
-          "age":"age_",
-          "gender":"gender_"
-        }
+        "columns": [
+	        {
+	          "name":"id",
+	          "title":"id_"
+	        },
+	        {
+	          "name":"age",
+	          "title":"age_"
+	        },
+	        {
+	          "name":"gender",
+	          "title":"gender_",
+	          "enum" : {
+	          	"male" : "male_",
+	          	"female" : "female_"
+	          }
+	        }
+        ]
       }
     ]
   }

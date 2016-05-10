@@ -1,22 +1,30 @@
-class Columns:
+class Column:
     
     def __init__(self):
-        self.__kv = {}
+        self.__name = ''
+        self.__title = ''
+        self.__enum = {}
 
-    def set(self, kv):
+    def setEnum(self, kv):
         self.__kv = kv
     
-    def get(self, k):
+    def enum(self, k):
         return self.__kv[k]
-    
-    def contains(self, k):
-        return k in self.__kv
+
+    def setName(self, name):
+        self.__name = name
+    def name(self):
+        return self.__name
+    def setTitle(self, title):
+        self.__title = title
+    def title(self):
+        return self.__title
 
 class Table:
     def __init__(self):
         self.__name = ''
         self.__title = ''
-        self.__columns = {}
+        self.__columns = []
         
     def setName(self, name):
         self.__name = name
@@ -30,8 +38,8 @@ class Table:
     def title(self):
         return self.__title
     
-    def setColumns(self, columns):
-        self.__columns = columns
+    def addColum(self, column):
+        self.__columns.append(column)
 
     def columns(self):
         return self.__columns

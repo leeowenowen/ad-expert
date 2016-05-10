@@ -11,8 +11,8 @@ def ParseDBConfig(path):
         return db
 
 
-db = ParseDBConfig('config.json')
-mgc = MySQLGenClient(db)
+db_config = ParseDBConfig('config.json')
+mgc = MySQLGenClient(db_config)
 
 mgc.open()
 

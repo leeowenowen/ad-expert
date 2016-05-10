@@ -1,4 +1,4 @@
-from DBConfig import Columns, Table, DB
+from DBConfig import Column, Table, DB
 
 class DBConfigParser:
     @staticmethod
@@ -17,9 +17,14 @@ class DBConfigParser:
             table.setName(json_table['name'])
             table.setTitle(json_table['title'])
             json_columns = json_table['columns']
-            columns = Columns()
-            columns.set(json_columns)
-            table.setColumns(columns)
+            for json_column in json_columns:
+                column = Column()
+                column.setName(json_column['name'])
+                column.setTitle(json_column['title'])
+                if 'enum' in json_column.keys():
+                    column.setEnum(json_column['enum'])
+                table.addColum(column)
+            db.addTable(table)
         return db
 
         

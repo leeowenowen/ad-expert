@@ -43,5 +43,5 @@ class MySQLGenClient:
         return self.execute(sql)
     
     def fetchColumnInfo(self, table):
-        sql = "select column_name,data_type, column_type from information_schema.columns where table_name = '%s' and table_schema='%s'" % (table, self.db.name())
+        sql = "select column_name,data_type, column_type, column_key, extra from information_schema.columns where table_name = '%s' and table_schema='%s'" % (table, self.db.name())
         return self.execute(sql)

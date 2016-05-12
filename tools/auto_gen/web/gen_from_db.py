@@ -58,13 +58,28 @@ for table_set in table_sets:
         tableHtmlBuilder.buildx()
         with open('web_template/table.template.html', 'r') as input:
             content = input.read()
-            content_template = Template(content)
-            content = content_template.substitute({'SERVER_PREFIX', tableHtmlBuilder.serverPrefxi(),
-                                        'TABLE_HEADER', tableHtmlBuilder.tableHeader(),
-                                        'TABLE_COLUMN', tableHtmlBuilder.tableColumn(),
-#                                         'EDIT_OLD', tableHtmlBuilder.editOld(),
-#                                         'EDIT_NEW', tableHtmlBuilder.editNew()
-                                        })
+            #content_template = Template(content)
+            table_header = tableHtmlBuilder.tableHeader()
+            table_column = tableHtmlBuilder.tableColumn()
+            edit_old = tableHtmlBuilder.editOld()
+            edit_new = tableHtmlBuilder.editNew()
+            print 'table_header:', table_header
+            print 'table_column:', table_column
+            print 'edit_old:', edit_old
+            print 'edit_new:', edit_new
+            print type(table_header)
+            print type(table_column)
+            print type(edit_old)
+            print type(edit_new)
+            content = content.replace('$SERVER_PREFIX',tableHtmlBuilder.serverPrefxi())
+            content = content.replace('$TABLE_HEADER', table_header)
+            content = content.replace('$TABLE_COLUMNS', table_column)
+            content = content.replace('$EDIT_OLD', edit_old)
+            content = content.replace('$EDIT_NEW', edit_new)
+#             content = content.replace(ADD="ADD")
+#             content = content.replace(ADD_HEADER_AUTO="ADD_HEADER_AUTO")
+#             content = content.replace(QUERY_MAKE_TABLE="QUERY_MAKE_TABLE")
+#             content = content.replace(QUERY="QUERY")
             with open('web_template/' + name + ".html", 'w') as output:
                 output.write(content)
 mgc.close()

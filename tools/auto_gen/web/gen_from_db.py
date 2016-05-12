@@ -6,6 +6,13 @@ from MySQLGenClient import MySQLGenClient
 from FileUtil import FileUtil
 from WebBuilder import WebBuilder
 from DBInfo import DB, Table, Column
+from TableHtmlBuilder import TableHtmlBuilder
+from string import Template
+
+def getTableConfigByName(table_configs, name):
+    for table_config in table_configs:
+        if table_config.name() == name:
+            return table_config
 
 def ParseDBConfig(path):
     with open(path, 'r') as config_json:
@@ -45,6 +52,27 @@ for table_set in table_sets:
             table_info.addColum(column_info)
             print '%s, %s, %s, %s, %s' % (name, data_type, column_type, column_key, extra)
         db_info.addTable(table_info)
+        name = table_info.name()
+        table_config = getTableConfigByName(db_config.tables(), name)
+        tableHtmlBuilder = TableHtmlBuilder(table_config, table_info)
+        tableHtmlBuilder.buildx()
+        with open('web_template/table.template.html', 'r') as input:
+            content = input.read()
+            content_template = Template(content)
+            content = content_template.substitute({'SERVER_PREFIX', tableHtmlBuilder.serverPrefxi(),
+                                        'TABLE_HEADER', tableHtmlBuilder.tableHeader(),
+                                        'TABLE_COLUMN', tableHtmlBuilder.tableColumn(),
+#                                         'EDIT_OLD', tableHtmlBuilder.editOld(),
+#                                         'EDIT_NEW', tableHtmlBuilder.editNew()
+                                        })
+            with open('web_template/' + name + ".html", 'w') as output:
+                output.write(content)
 mgc.close()
+
+# declare variables
+
+
+
+
 
 

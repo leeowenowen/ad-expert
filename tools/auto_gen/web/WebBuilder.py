@@ -20,3 +20,6 @@ class WebBuilder:
             content = Template(content).substitute(TITLE="NO TITLE", LI=lis)
             with open('web_template/tables.html', 'w') as output:
                 output.write(content)
+    
+                
+    

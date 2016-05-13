@@ -10,10 +10,11 @@ class TableHtmlBuilder:
         self.__table_column = ''
         self.__edit_old = ''
         self.__edit_new = ''
+        self.__delete = ''
         
             
     
-    def buildx(self):
+    def build(self):
         # build __server_prefix
         # build __table_header
         table_columns = []
@@ -35,6 +36,7 @@ class TableHtmlBuilder:
                 if table_columns[i] == name:
                     table_columns[i] = title
         self.__table_header = self.listToString(table_columns)
+        self.__delete = self.buildDelete();
         
     
     def serverPrefxi(self):
@@ -47,6 +49,8 @@ class TableHtmlBuilder:
         return self.__edit_old
     def editNew(self):
         return self.__edit_new
+    def delete(self):
+        return self.__delete
     
     @staticmethod
     def listToString(l):
@@ -85,4 +89,23 @@ class TableHtmlBuilder:
         ret += 'if ( %s){ var url=%supdate?%s;' % (condition, 'SERVER_PREFIX', params)
         return ret
 
+    def buildDelete(self):
+        ret = ''
+        primary_keys = self.__table_info.primaryKeys()
+        if len(primary_keys) > 0:
+            params = ''
+            for i in range(len(primary_keys)):
+                pk_pair = primary_keys[i]
+                pk = pk_pair[0].name()
+                pk_index = pk_pair[1]
+                ret += 'var %s = row.cells[%s].innerHTML;' % (pk, pk_index)
+                if i != 0:
+                    params += '+ \"&'
+                params += '%s=\" + %s' % (pk, pk)
+            ret += 'var url=%sdelete?%s;' % ('SERVER_PREFIX', params)    
+        else:
+            print 'no primary key in table'
+            pass
+        return ret
+        
         

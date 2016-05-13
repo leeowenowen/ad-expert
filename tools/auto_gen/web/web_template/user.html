@@ -6,20 +6,20 @@ TABLE_HEADER
 TABLE_COLUMNS
  -->
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<script src="jquery/jquery-1.12.1.min.js" type="text/javascript"></script>
+    <script src="jquery/jquery-1.12.1.min.js" type="text/javascript"></script>
 
-<link href="css/data_table.css" rel="stylesheet" type="text/css" />
-<link href="css/popup_mask.css" rel="stylesheet" type="text/css" />
-<script src="js/make_data_table.js" type="text/javascript"></script>
+    <link href="css/data_table.css" rel="stylesheet" type="text/css"/>
+    <link href="css/popup_mask.css" rel="stylesheet" type="text/css"/>
+    <script src="js/make_data_table.js" type="text/javascript"></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
         var server_prefix = ;
 
         function makeProgrammerTable(programmers) {
-            var headers = ["id_","age_","name","gender_","intrests","recent_websites"]
-            var keys = ["id","age","name","gender","intrests","recent_websites"]
+            var headers = ["id_","gender_","age_"]
+            var keys = ["id","gender","age"]
             return makeTable(headers, keys, programmers);
         }
 
@@ -35,7 +35,7 @@ TABLE_COLUMNS
         function editRow(row) {
             showEditLayer();
 //--------------------------------------
-var id = row.cells[0].innerHTML;document.getElementById("edit_id").value = id;var age = row.cells[1].innerHTML;document.getElementById("edit_age").value = age;var name = row.cells[2].innerHTML;document.getElementById("edit_name").value = name;var gender = row.cells[3].innerHTML;document.getElementById("edit_gender").value = gender;var intrests = row.cells[4].innerHTML;document.getElementById("edit_intrests").value = intrests;var recent_websites = row.cells[5].innerHTML;document.getElementById("edit_recent_websites").value = recent_websites;
+var id = row.cells[0].innerHTML;document.getElementById("edit_id").value = id;var gender = row.cells[1].innerHTML;document.getElementById("edit_gender").value = gender;var age = row.cells[2].innerHTML;document.getElementById("edit_age").value = age;
 /*             var id = row.cells[0].innerHTML;
             var name = row.cells[1].innerHTML;
             var gender = row.cells[2].innerHTML;
@@ -46,7 +46,7 @@ var id = row.cells[0].innerHTML;document.getElementById("edit_id").value = id;va
 //--------------------------------------        
             document.getElementById("edit_ok").onclick = function () {
 //--------------------------------------   
-var new_id = document.getElementById("edit_id").value;var new_age = document.getElementById("edit_age").value;var new_name = document.getElementById("edit_name").value;var new_gender = document.getElementById("edit_gender").value;var new_intrests = document.getElementById("edit_intrests").value;var new_recent_websites = document.getElementById("edit_recent_websites").value;if ( id != new_id || age != new_age || name != new_name || gender != new_gender || intrests != new_intrests || recent_websites != new_recent_websites){ var url=SERVER_PREFIXupdate?id=" + id+ "&age=" + age+ "&name=" + name+ "&gender=" + gender+ "&intrests=" + intrests+ "&recent_websites=" + recent_websites;
+var new_id = document.getElementById("edit_id").value;var new_gender = document.getElementById("edit_gender").value;var new_age = document.getElementById("edit_age").value;if ( id != new_id || gender != new_gender || age != new_age){ var url=SERVER_PREFIXupdate?id=" + id+ "&gender=" + gender+ "&age=" + age;
 /*                 var new_id = document.getElementById("edit_id").value;
                 var new_name = document.getElementById("edit_name").value;
                 var new_gender = document.getElementById("edit_gender").value;
@@ -82,7 +82,7 @@ var new_id = document.getElementById("edit_id").value;var new_age = document.get
         }
         function deleteRow(row) {
 //-------------------------------------- 
-$DELETE
+$var id = row.cells[0].innerHTML;var age = row.cells[2].innerHTML;var url=SERVER_PREFIXdelete?id=" + id+ "&age=" + age;
 /*             var id = row.cells[0].innerHTML;
             var url = server_prefix + 'delete?id=' + id; */
 //-------------------------------------- 
@@ -230,42 +230,33 @@ $ADD
     </script>
 </head>
 <body>
-	<div id="div_form">
-		<form id="form_op_id">
-			<p>
-				name: <input type="text" id="name" style="width: 300px" />
-			</p>
-			<p>
-				<input type="button" class="btn_class" value="Query"
-					onclick="query()" /><input type="button" class="btn_class"
-					value="Add" onclick="add()" />
-			</p>
-		</form>
-	</div>
-	<div id="div_table_content"></div>
-	<div id="div_popup_edit" class="popup_window" style="display: none;">
-		<form id="form_edit_id">
-			<p id="p_edit_id">
-				id: <input type="text" id="edit_id" readonly style="width: 300px" />
-			</p>
-			<p>
-				name: <input type="text" id="edit_name" style="width: 300px" />
-			</p>
-			<p>
-				gender: <select id="edit_gender" style="width: 300px">
-					<option value="male">male</option>
-					<option value="female">female</option>
-				</select>
-			</p>
-			<p>
-				<input type="button" class="btn_class" id="edit_cancel"
-					value="Cancel" /><input type="button" class="btn_class" value="OK"
-					id="edit_ok" />
-			</p>
-			<input type="reset" id="edit_reset" style="display: none;" />
-		</form>
-	</div>
-	<div id="div_mask" class="mask_layer" style="display: none;"></div>
+<div id="div_form">
+    <form id="form_op_id">
+        <p>name: <input type="text" id="name" style="width: 300px"/></p>
+        <p><input type="button" class="btn_class" value="Query" onclick="query()"/><input type="button"
+                                                                                          class="btn_class" value="Add"
+                                                                                          onclick="add()"/></p>
+    </form>
+</div>
+<div id="div_table_content">
+</div>
+<div id="div_popup_edit" class="popup_window" style="display:none;">
+    <form id="form_edit_id">
+        <p id="p_edit_id">id: <input type="text" id="edit_id" readonly style="width: 300px"/></p>
+        <p>name: <input type="text" id="edit_name" style="width: 300px"/></p>
+        <p>gender:
+            <select id="edit_gender" style="width: 300px">
+                <option value="male">male</option>
+                <option value="female">female</option>
+            </select>
+        </p>
+        <p><input type="button" class="btn_class" id="edit_cancel" value="Cancel"/><input type="button"
+                                                                                          class="btn_class" value="OK"
+                                                                                          id="edit_ok"/></p>
+        <input type="reset" id="edit_reset" style="display: none;"/>
+    </form>
+</div>
+<div id="div_mask" class="mask_layer" style="display:none;"></div>
 
 </body>
 </html>

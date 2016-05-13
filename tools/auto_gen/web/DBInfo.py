@@ -53,11 +53,12 @@ class Table:
         return self.__columns
     
     def check(self):
-        for col in self.__columns:
+        for i in range(len(self.__columns)):
+            col = self.__columns[i]
             if col.isPrimaryKey():
-                self.__pk_columns.append(col)
+                self.__pk_columns.append([col, i])
             if col.isAutoIncrement():
-                self.__autoinc_columns.append(col)
+                self.__autoinc_columns.append([col, i])
     def primaryKeys(self):
         return self.__pk_columns
     def autoIncrement(self):

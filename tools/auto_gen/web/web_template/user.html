@@ -17,10 +17,10 @@ TABLE_COLUMNS
     <script type="text/javascript">
         var server_prefix = ;
 
-        function makeProgrammerTable(programmers) {
-            var headers = ["id_","gender_","age_"]
-            var keys = ["id","gender","age"]
-            return makeTable(headers, keys, programmers);
+        function makeProgrammerTable(user) {
+            var headers = ["id_","age_","name","gender_","intrests","recent_websites"]
+            var keys = ["id","age","name","gender","intrests","recent_websites"]
+            return makeTable(headers, keys, user);
         }
 
         function showEditLayer() {
@@ -35,7 +35,7 @@ TABLE_COLUMNS
         function editRow(row) {
             showEditLayer();
 //--------------------------------------
-var id = row.cells[0].innerHTML;document.getElementById("edit_id").value = id;var gender = row.cells[1].innerHTML;document.getElementById("edit_gender").value = gender;var age = row.cells[2].innerHTML;document.getElementById("edit_age").value = age;
+var id = row.cells[0].innerHTML;document.getElementById("edit_id").value = id;var age = row.cells[1].innerHTML;document.getElementById("edit_age").value = age;var name = row.cells[2].innerHTML;document.getElementById("edit_name").value = name;var gender = row.cells[3].innerHTML;document.getElementById("edit_gender").value = gender;var intrests = row.cells[4].innerHTML;document.getElementById("edit_intrests").value = intrests;var recent_websites = row.cells[5].innerHTML;document.getElementById("edit_recent_websites").value = recent_websites;
 /*             var id = row.cells[0].innerHTML;
             var name = row.cells[1].innerHTML;
             var gender = row.cells[2].innerHTML;
@@ -46,7 +46,7 @@ var id = row.cells[0].innerHTML;document.getElementById("edit_id").value = id;va
 //--------------------------------------        
             document.getElementById("edit_ok").onclick = function () {
 //--------------------------------------   
-var new_id = document.getElementById("edit_id").value;var new_gender = document.getElementById("edit_gender").value;var new_age = document.getElementById("edit_age").value;if ( id != new_id || gender != new_gender || age != new_age){ var url=SERVER_PREFIXupdate?id=" + id+ "&gender=" + gender+ "&age=" + age;
+var new_id = document.getElementById("edit_id").value;var new_age = document.getElementById("edit_age").value;var new_name = document.getElementById("edit_name").value;var new_gender = document.getElementById("edit_gender").value;var new_intrests = document.getElementById("edit_intrests").value;var new_recent_websites = document.getElementById("edit_recent_websites").value;if ( id != new_id || age != new_age || name != new_name || gender != new_gender || intrests != new_intrests || recent_websites != new_recent_websites){ var url=SERVER_PREFIXupdate?id=" + id+ "&age=" + age+ "&name=" + name+ "&gender=" + gender+ "&intrests=" + intrests+ "&recent_websites=" + recent_websites;
 /*                 var new_id = document.getElementById("edit_id").value;
                 var new_name = document.getElementById("edit_name").value;
                 var new_gender = document.getElementById("edit_gender").value;
@@ -82,7 +82,7 @@ var new_id = document.getElementById("edit_id").value;var new_gender = document.
         }
         function deleteRow(row) {
 //-------------------------------------- 
-$var id = row.cells[0].innerHTML;var age = row.cells[2].innerHTML;var url=SERVER_PREFIXdelete?id=" + id+ "&age=" + age;
+var id = row.cells[0].innerHTML;var url=SERVER_PREFIXdelete?id=" + id;
 /*             var id = row.cells[0].innerHTML;
             var url = server_prefix + 'delete?id=' + id; */
 //-------------------------------------- 
@@ -152,18 +152,18 @@ $var id = row.cells[0].innerHTML;var age = row.cells[2].innerHTML;var url=SERVER
 
         function query() {
 //-------------------------------------- 
-$QUERY
-/*             var name = document.getElementById("name").value;
-            var url = server_prefix + 'query?name=' + name; */
+//$QUERY
+             var name = document.getElementById("name").value;
+            var url = server_prefix + 'query?name=' + name; 
 //-------------------------------------- 
             $.ajax({
                 url: url,
                 success: function (data) {
                     if (data.code == 0) {
                     //-------------------------------------- 
-                    $QUERY_MAKE_TABLE
-                        var programmers = data.data.programmers;
-                        var html = makeProgrammerTable(programmers);
+                   // $QUERY_MAKE_TABLE
+                        var user = data.data.user;
+                        var html = makeProgrammerTable(user); 
                     //-------------------------------------- 
                         var div_table_content = document.getElementById("div_table_content");
                         div_table_content.innerHTML = html;
@@ -184,16 +184,16 @@ $QUERY
         function add() {
             showEditLayer();
 //-------------------------------------- 
-$ADD_HIDE_AUTO
+var age = document.getElementById("edit_age").value;var name = document.getElementById("edit_name").value;var gender = document.getElementById("edit_gender").value;var intrests = document.getElementById("edit_intrests").value;var recent_websites = document.getElementById("edit_recent_websites").value;if ( age != null &&name != null &&gender != null &&intrests != null &&recent_websites != null){ var url=SERVER_PREFIXadd?age=" + age+ "&name=" + name+ "&gender=" + gender+ "&intrests=" + intrests+ "&recent_websites=" + recent_websites;_HIDE_AUTO
 /*             document.getElementById("p_edit_id").style.display = 'none'; */
 //--------------------------------------      
             document.getElementById("edit_reset").click();
             document.getElementById("edit_ok").onclick = function () {
 //--------------------------------------         
-$ADD
+var age = document.getElementById("edit_age").value;var name = document.getElementById("edit_name").value;var gender = document.getElementById("edit_gender").value;var intrests = document.getElementById("edit_intrests").value;var recent_websites = document.getElementById("edit_recent_websites").value;if ( age != null &&name != null &&gender != null &&intrests != null &&recent_websites != null){ var url=SERVER_PREFIXadd?age=" + age+ "&name=" + name+ "&gender=" + gender+ "&intrests=" + intrests+ "&recent_websites=" + recent_websites;
 /*                 var name = document.getElementById("edit_name").value;
                 var gender = document.getElementById("edit_gender").value;
-                if (name != null || gender != null) {
+                if (name != null && gender != null) {
                     //do add request
                     var url = server_prefix + 'add?name=' + name +
                             "&gender=" + gender; */
@@ -242,6 +242,8 @@ $ADD
 </div>
 <div id="div_popup_edit" class="popup_window" style="display:none;">
     <form id="form_edit_id">
+    <p id="p_edit_id">id: <input type="text" id="edit_id" readonly style="width: 300px"/></p><p>age: <input type="text" id="edit_age" style="width: 300px"/></p><p>name: <input type="text" id="edit_name" style="width: 300px"/></p><p>gender: <select id="edit_gender" style="width: 300px"></select></p><p>intrests: <input type="text" id="edit_intrests" style="width: 300px"/></p><p>recent_websites: <input type="text" id="edit_recent_websites" style="width: 300px"/></p>
+    <!--  
         <p id="p_edit_id">id: <input type="text" id="edit_id" readonly style="width: 300px"/></p>
         <p>name: <input type="text" id="edit_name" style="width: 300px"/></p>
         <p>gender:
@@ -250,6 +252,7 @@ $ADD
                 <option value="female">female</option>
             </select>
         </p>
+        -->
         <p><input type="button" class="btn_class" id="edit_cancel" value="Cancel"/><input type="button"
                                                                                           class="btn_class" value="OK"
                                                                                           id="edit_ok"/></p>

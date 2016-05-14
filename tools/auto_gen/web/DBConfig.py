@@ -10,6 +10,8 @@ class Column:
     
     def enum(self, k):
         return self.__kv[k]
+    def enums(self):
+        return self.__kv
 
     def setName(self, name):
         self.__name = name
@@ -43,6 +45,11 @@ class Table:
 
     def columns(self):
         return self.__columns
+    
+    def column(self, name):
+        for column in self.__columns:
+            if column.name() == name:
+                return column
 
 class DB:
     
@@ -97,4 +104,7 @@ class DB:
     def tables(self):
         return self.__tables
 
-
+    def getTable(self, name):
+        for table in self.__tables:
+            if table.name() == name:
+                return table

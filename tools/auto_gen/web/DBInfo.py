@@ -28,6 +28,9 @@ class Column:
     def extra(self):
         return self.__extra
     
+    def isEnum(self):
+        return self.__data_type.lower().find('enum') >= 0
+    
     def isAutoIncrement(self):
         return self.__extra.lower().find("auto_increment") >= 0
     

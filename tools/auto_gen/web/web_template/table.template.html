@@ -152,18 +152,18 @@ $DELETE
 
         function query() {
 //-------------------------------------- 
-$QUERY
-/*             var name = document.getElementById("name").value;
-            var url = server_prefix + 'query?name=' + name; */
+//$QUERY
+             var name = document.getElementById("name").value;
+            var url = server_prefix + 'query?name=' + name; 
 //-------------------------------------- 
             $.ajax({
                 url: url,
                 success: function (data) {
                     if (data.code == 0) {
                     //-------------------------------------- 
-                    $QUERY_MAKE_TABLE
+                   // $QUERY_MAKE_TABLE
                         var programmers = data.data.programmers;
-                        var html = makeProgrammerTable(programmers);
+                        var html = makeProgrammerTable(programmers); 
                     //-------------------------------------- 
                         var div_table_content = document.getElementById("div_table_content");
                         div_table_content.innerHTML = html;
@@ -193,7 +193,7 @@ $ADD_HIDE_AUTO
 $ADD
 /*                 var name = document.getElementById("edit_name").value;
                 var gender = document.getElementById("edit_gender").value;
-                if (name != null || gender != null) {
+                if (name != null && gender != null) {
                     //do add request
                     var url = server_prefix + 'add?name=' + name +
                             "&gender=" + gender; */
@@ -242,6 +242,8 @@ $ADD
 </div>
 <div id="div_popup_edit" class="popup_window" style="display:none;">
     <form id="form_edit_id">
+    $FORM
+    <!--  
         <p id="p_edit_id">id: <input type="text" id="edit_id" readonly style="width: 300px"/></p>
         <p>name: <input type="text" id="edit_name" style="width: 300px"/></p>
         <p>gender:
@@ -250,6 +252,7 @@ $ADD
                 <option value="female">female</option>
             </select>
         </p>
+        -->
         <p><input type="button" class="btn_class" id="edit_cancel" value="Cancel"/><input type="button"
                                                                                           class="btn_class" value="OK"
                                                                                           id="edit_ok"/></p>

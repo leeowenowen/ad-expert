@@ -65,11 +65,15 @@ for table_set in table_sets:
             edit_old = tableHtmlBuilder.editOld()
             edit_new = tableHtmlBuilder.editNew()
             delete = tableHtmlBuilder.delete()
+            add = tableHtmlBuilder.add();
+            form = tableHtmlBuilder.form();
             print 'table_header:', table_header
             print 'table_column:', table_column
             print 'edit_old:', edit_old
             print 'edit_new:', edit_new
             print 'delete:', delete
+            print 'add:', add
+            print 'form:', form
 
             content = content.replace('$SERVER_PREFIX',tableHtmlBuilder.serverPrefxi())
             content = content.replace('$TABLE_HEADER', table_header)
@@ -77,8 +81,10 @@ for table_set in table_sets:
             content = content.replace('$EDIT_OLD', edit_old)
             content = content.replace('$EDIT_NEW', edit_new)
             content = content.replace('$EDIT_NEW', edit_new)
-            content = content.replace('DELETE', delete)
-#             content = content.replace(ADD="ADD")
+            content = content.replace('$DELETE', delete)
+            content = content.replace('programmers', name)
+            content = content.replace('$ADD', add)
+            content = content.replace('$FORM', form)
 #             content = content.replace(ADD_HEADER_AUTO="ADD_HEADER_AUTO")
 #             content = content.replace(QUERY_MAKE_TABLE="QUERY_MAKE_TABLE")
 #             content = content.replace(QUERY="QUERY")

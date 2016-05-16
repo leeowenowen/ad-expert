@@ -1,3 +1,4 @@
+# coding:utf-8
 import os
 import sys
 import json
@@ -66,6 +67,7 @@ for table_set in table_sets:
             edit_new = tableHtmlBuilder.editNew()
             delete = tableHtmlBuilder.delete()
             add = tableHtmlBuilder.add();
+            add_hide_auto = tableHtmlBuilder.addHideAuto()
             form = tableHtmlBuilder.form();
             print 'table_header:', table_header
             print 'table_column:', table_column
@@ -73,21 +75,22 @@ for table_set in table_sets:
             print 'edit_new:', edit_new
             print 'delete:', delete
             print 'add:', add
+            print 'add_hide_auto:', add_hide_auto
             print 'form:', form
 
-            content = content.replace('$SERVER_PREFIX',tableHtmlBuilder.serverPrefxi())
             content = content.replace('$TABLE_HEADER', table_header)
             content = content.replace('$TABLE_COLUMNS', table_column)
             content = content.replace('$EDIT_OLD', edit_old)
             content = content.replace('$EDIT_NEW', edit_new)
-            content = content.replace('$EDIT_NEW', edit_new)
             content = content.replace('$DELETE', delete)
             content = content.replace('programmers', name)
+            content = content.replace('ADD_HIDE_AUTO', add_hide_auto)
             content = content.replace('$ADD', add)
             content = content.replace('$FORM', form)
 #             content = content.replace(ADD_HEADER_AUTO="ADD_HEADER_AUTO")
 #             content = content.replace(QUERY_MAKE_TABLE="QUERY_MAKE_TABLE")
 #             content = content.replace(QUERY="QUERY")
+            content = content.replace('$SERVER_PREFIX',tableHtmlBuilder.serverPrefxi())
             with open('web_template/' + name + ".html", 'w') as output:
                 output.write(content)
 mgc.close()

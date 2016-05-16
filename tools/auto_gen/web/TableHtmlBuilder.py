@@ -5,7 +5,7 @@ class TableHtmlBuilder:
     def __init__(self, table_config, table_info):
         self.__table_config = table_config
         self.__table_info = table_info
-        self.__server_prefix = ''
+        self.__server_prefix = 'http://127.0.0.1/'
         self.__table_header = ''
         self.__table_column = ''
         self.__edit_old = ''
@@ -45,7 +45,7 @@ class TableHtmlBuilder:
         
     
     def serverPrefxi(self):
-        return self.__server_prefix
+        return '\"' + self.__server_prefix + '\"'
     def tableHeader(self):
         return self.__table_header
     def tableColumn(self):
@@ -70,7 +70,7 @@ class TableHtmlBuilder:
             start = item.find('\'')
             end = item.find('\'', start + 1)
             if start >= 0 and end >= 0:
-                items[i] = item[start:end]
+                items[i] = item[start + 1:end]
         return items
     
     def buildForm(self):
@@ -89,7 +89,8 @@ class TableHtmlBuilder:
                     enums = self.getEnumFromColumnType(col_type)
                     for i in range(len(enums)):
                         e = enums[i]
-                        if e in col_config.enums():
+                        keys = col_config.enums().keys()
+                        if e in keys:
                             enums[i] = col_config.enums()[e]
                             content += '<option value="%s">%s</option>' % (e, enums[i])
                     ret += start
@@ -128,7 +129,7 @@ class TableHtmlBuilder:
             if i != 0:
                 params += '+ \"&'
             params += '%s=\" + %s' % (name, name)
-        ret += 'if ( %s){ var url=%sadd?%s;' % (condition, 'SERVER_PREFIX', params)
+        ret += 'if ( %s){ var url=\"%sadd?%s;' % (condition, self.__server_prefix, params)
         return ret
 
     @staticmethod
@@ -151,8 +152,7 @@ class TableHtmlBuilder:
             ret += ('document.getElementById("edit_%s").value = %s;') % (column, column)
         return ret
     
-    @staticmethod
-    def buildEditNew(columns):
+    def buildEditNew(self, columns):
         ret = ''
         condition = ''
         params = ''
@@ -165,7 +165,7 @@ class TableHtmlBuilder:
             if i != 0:
                 params += '+ \"&'
             params += '%s=\" + %s' % (column, column)
-        ret += 'if ( %s){ var url=%supdate?%s;' % (condition, 'SERVER_PREFIX', params)
+        ret += 'if ( %s){ var url=\"%supdate?%s;' % (condition, self.__server_prefix, params)
         return ret
 
     def buildDelete(self):
@@ -181,7 +181,7 @@ class TableHtmlBuilder:
                 if i != 0:
                     params += '+ \"&'
                 params += '%s=\" + %s' % (pk, pk)
-            ret += 'var url=%sdelete?%s;' % ('SERVER_PREFIX', params)    
+            ret += 'var url=\"%sdelete?%s;' % (self.__server_prefix, params)    
         else:
             print 'no primary key in table'
             pass

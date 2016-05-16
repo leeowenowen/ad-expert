@@ -23,8 +23,8 @@
 	          "name":"gender",
 	          "title":"gender_",
 	          "enum" : {
-	          	"male" : "male_",
-	          	"female" : "female_"
+	          	"male" : "男",
+	          	"female" : "女"
 	          }
 	        }
         ]

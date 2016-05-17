@@ -1,0 +1,16 @@
+// dao
+
+dependencies {
+    compile project(':common')
+    compile libraries.spring_context
+
+    // redis
+    compile libraries.spring_data_redis
+    compile libraries.redis
+
+    // mysql
+    compile libraries.spring_jdbc
+    compile libraries.mysql_connector
+    compile libraries.mybatis
+    compile libraries.mybatis_spring
+}

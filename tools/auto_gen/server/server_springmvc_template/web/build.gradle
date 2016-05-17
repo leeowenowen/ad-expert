@@ -1,0 +1,30 @@
+// web-mediation
+
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+ext.local = [
+    loggingDir: "${buildDir}/logs",
+]
+
+gretty {
+    httpPort = 9090
+    debugPort = 5005
+    debugSuspend = true
+
+    jvmArgs = ["-Dlog.path=${local.loggingDir}"]
+    logDir = "${local.loggingDir}"
+}
+
+dependencies {
+    compile project(':common')
+    compile project(':service')
+
+    compile libraries.spring_webmvc
+
+    compile libraries.javax_servlet
+}
+
+apply from: gradleScript.distScript
+
+dist.dependsOn war

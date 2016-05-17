@@ -1,0 +1,96 @@
+// build.gradle
+
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:+'
+    }
+}
+
+ext.global = [
+    javacCompatibility: 1.7,
+    rootProjectDir    : "${rootProject.projectDir}",
+]
+
+ext.gradleScript = [
+    distScript: "${global.rootProjectDir}/build/dist.gradle",
+]
+
+ext.versions = [
+    slf4j: '1.7.+',
+    spring: '4.1.6.RELEASE',
+
+    // Unit test
+    junit: '4.+',
+    powermock: '1.6.2',
+    mockito: '1.10.19',
+]
+
+ext.libraries = [
+    apache_commons_lang3: 'org.apache.commons:commons-lang3:3.4',
+    gson: 'com.google.code.gson:gson:2.6.1',
+    okhttp: 'com.squareup.okhttp:okhttp:2.+',
+    javax_inject: 'javax.inject:javax.inject:1',
+    javax_servlet: 'javax.servlet:javax.servlet-api:3.0.1',
+    zookeeper: 'org.apache.curator:curator-recipes:2.7.0',
+    hessian: 'com.caucho:hessian:4.+',
+
+    // logging
+    slf4j_api: "org.slf4j:slf4j-api:${versions.slf4j}",
+    slf4j_log4j12: "org.slf4j:slf4j-log4j12:${versions.slf4j}",
+
+    // Spring
+    spring_context: "org.springframework:spring-context:${versions.spring}",
+    spring_core: "org.springframework:spring-core:${versions.spring}",
+    spring_beans: "org.springframework:spring-beans:${versions.spring}",
+    spring_webmvc: "org.springframework:spring-webmvc:${versions.spring}",
+
+    // sql
+    druid: 'com.alibaba:druid:1.0.14',
+    mybatis: 'org.mybatis:mybatis:3.2.7',
+    mybatis_spring: 'org.mybatis:mybatis-spring:1.2.2',
+    mysql_connector: 'mysql:mysql-connector-java:5.1.6',
+    redis: 'redis.clients:jedis:2.+',
+    spring_jdbc: "org.springframework:spring-jdbc:${versions.spring}",
+    spring_data_redis: 'org.springframework.data:spring-data-redis:1.7.1.RELEASE',
+
+    // Unit test
+    junit: "junit:junit:${versions.junit}",
+    powermock_junit4: "org.powermock:powermock-module-junit4:${versions.powermock}",
+    powermock_mockito: "org.powermock:powermock-api-mockito:${versions.powermock}",
+    mockito: "org.mockito:mockito-all:${versions.mockito}",
+    spring_test: "org.springframework:spring-test:${versions.spring}",
+]
+
+allprojects {
+    buildDir = new File(rootProject.projectDir, "out/${project.name}")
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = "${global.javacCompatibility}"
+    targetCompatibility = "${global.javacCompatibility}"
+
+    dependencies {
+        testCompile libraries.junit
+        testCompile libraries.powermock_junit4
+        testCompile libraries.powermock_mockito
+        testCompile libraries.mockito
+        testCompile libraries.spring_test
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    tasks.withType(Test) {
+      // avoid "> superClassName is empty!" error
+      scanForTestClasses = false
+      include "**/*Test.class"
+      exclude "**/Abstract*.class"
+    }
+}

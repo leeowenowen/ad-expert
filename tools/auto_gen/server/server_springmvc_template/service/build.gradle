@@ -1,0 +1,8 @@
+// service
+
+dependencies {
+    compile project(':common')
+    compile project(':dao')
+
+    compile libraries.okhttp
+}

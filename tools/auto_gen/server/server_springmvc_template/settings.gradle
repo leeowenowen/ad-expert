@@ -1,0 +1,16 @@
+// settings.gradle
+
+rootProject.name = 'union-admaster'
+
+include 'common'
+project(':common').projectDir = new File(rootProject.projectDir, 'common')
+
+include 'dao'
+project(':dao').projectDir = new File(rootProject.projectDir, 'dao')
+
+include 'service'
+project(':service').projectDir = new File(rootProject.projectDir, 'service')
+
+include 'web-gptracker'
+project(':web-gptracker').projectDir = new File(rootProject.projectDir, 'web-gptracker')
+

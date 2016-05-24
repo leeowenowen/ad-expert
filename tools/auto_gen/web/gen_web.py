@@ -21,7 +21,7 @@ def ParseDBConfig(path):
         db = DBConfigParser.fromJson(config)
         return db
 
-
+connect_url = 'jdbc:mysql://localhost/software_engineer'
 db_config = ParseDBConfig('config.json')
 mgc = MySQLGenClient(db_config)
 
@@ -29,6 +29,7 @@ mgc.open()
 
 table_sets = mgc.fetchTableInfo()
 db_info = DB()
+#gen web
 for table_set in table_sets:
     WebBuilder.buildTab(table_set)
     for table in table_set:
@@ -94,7 +95,13 @@ for table_set in table_sets:
             with open('web_template/' + name + ".html", 'w') as output:
                 output.write(content)
 mgc.close()
-
+# gen server
+# gen mybatis
+from MyBatisBuildXMLBuilder import Gen
+from MyBatisConfigBuilder import GenConfig
+Gen('mybatis-generator-core-1.3.1.jar','server_template/mybatis-generator/config.xml','server_template/mybatis-generator/build.xml')
+GenConfig('jdbc:mysql://localhost/software_engineer', 'root','wangli','com.owo', db_info.tables(), 'server_template/mybatis-generator/config.xml')
+os.system('cd server_template/mybatis-generator && ant')
 # declare variables
 
 

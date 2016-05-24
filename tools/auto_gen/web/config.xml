@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration
-  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
 <generatorConfiguration>
 	<classPathEntry location="lib/mysql-connector-java-5.1.6-bin.jar" />
 	<context id="DB2Tables" targetRuntime="MyBatis3">
@@ -31,12 +28,13 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<!-- 添加你想生成的table -->
-		<table tableName="programmer" domainObjectName="Programmer"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false">
-			<generatedKey column="id" identity="true" sqlStatement="mysql"
-				type="post" />
-		</table>
+                <table tableName="user" domainObjectName="user"
+                        enableCountByExample="false" enableDeleteByExample="false"
+                        enableSelectByExample="false" enableUpdateByExample="false">
+                        <generatedKey column="id" identity="true" sqlStatement="mysql"
+                                type="post" />
+                </table>
+
+
 	</context>
 </generatorConfiguration>
